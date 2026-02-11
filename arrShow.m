@@ -3455,6 +3455,7 @@ classdef arrShow < handle
             % get previous zoom level
             prevDim  = obj.statistics.getDimensions();
             prevZoom = obj.getZoom();
+            prevNoImgs = length(obj.ih);  % number of previously shown images
             
             
             % get colormap for current complexSelection
@@ -3519,8 +3520,8 @@ classdef arrShow < handle
             
             % apply previous zoom level
             newDim  = obj.statistics.getDimensions();
-            if all(newDim == prevDim)
-                obj.setZoom(prevZoom); % This line may cause 1st image larger than others after resize
+            if all(newDim == prevDim) && noImgs == prevNoImgs
+                obj.setZoom(prevZoom);
             end
             
             % draw new roi
