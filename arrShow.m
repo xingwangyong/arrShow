@@ -3520,7 +3520,7 @@ classdef arrShow < handle
             % apply previous zoom level
             newDim  = obj.statistics.getDimensions();
             if all(newDim == prevDim)
-                obj.setZoom(prevZoom);
+                obj.setZoom(prevZoom); % This line may cause 1st image larger than others after resize
             end
             
             % draw new roi
