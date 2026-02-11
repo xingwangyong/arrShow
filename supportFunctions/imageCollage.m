@@ -23,19 +23,41 @@ fpos = get(parentPanelH,'position');
 fWidth = fpos(3);
 fHeight = fpos(4);
 
-% width and height of every image
+% % width and height of every image
+% layout_total = noFrames;
+% if (layout_total ~= 1) && (mod(layout_total, 2) ~= 0) && (length(factor(layout_total)) == 1)
+%     layout_total = layout_total + 1;
+% end
+% layout_factor = factor(layout_total);
+% layout_row_num = prod(layout_factor(1:ceil(length(layout_factor) / 2)));
+% layout_column_num = prod(layout_factor(ceil(length(layout_factor) / 2) + 1:end));
+% if layout_row_num > layout_column_num
+%     temp = layout_row_num;
+%     layout_row_num = layout_column_num;
+%     layout_column_num = temp;
+% end
+% nCols = layout_column_num;
+% nRows = layout_row_num;
+% colHeight = floor(fHeight / nRows);
+% colWidth = floor(fWidth / nCols);
+
 layout_total = noFrames;
-if (layout_total ~= 1) && (mod(layout_total, 2) ~= 0) && (length(factor(layout_total)) == 1)
-    layout_total = layout_total + 1;
+if (layout_total ~= 1) && (isprime(layout_total))
+    % For prime numbers, use single row layout
+    layout_row_num = 1;
+    layout_column_num = layout_total;
+else
+    % Original logic for non-prime numbers
+    layout_factor = factor(layout_total);
+    layout_row_num = prod(layout_factor(1:ceil(length(layout_factor) / 2)));
+    layout_column_num = prod(layout_factor(ceil(length(layout_factor) / 2) + 1:end));
+    if layout_row_num > layout_column_num
+        temp = layout_row_num;
+        layout_row_num = layout_column_num;
+        layout_column_num = temp;
+    end
 end
-layout_factor = factor(layout_total);
-layout_row_num = prod(layout_factor(1:ceil(length(layout_factor) / 2)));
-layout_column_num = prod(layout_factor(ceil(length(layout_factor) / 2) + 1:end));
-if layout_row_num > layout_column_num
-    temp = layout_row_num;
-    layout_row_num = layout_column_num;
-    layout_column_num = temp;
-end
+
 nCols = layout_column_num;
 nRows = layout_row_num;
 colHeight = floor(fHeight / nRows);
