@@ -3520,7 +3520,7 @@ classdef arrShow < handle
             
             % apply previous zoom level
             newDim  = obj.statistics.getDimensions();
-            if all(newDim == prevDim) && noImgs == prevNoImgs
+            if all(newDim == prevDim) && noImgs == prevNoImgs && noImgs == 1
                 obj.setZoom(prevZoom);
             end
             
